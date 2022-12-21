@@ -1,0 +1,24 @@
+{
+  "name": "@hexlet/code",
+  "version": "0.0.1",
+  "description": "RSS-reader ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Saimon398/frontend-project-11.git"
+  },
+  "author": "otdameskapizm <aleksborislavskij@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Saimon398/frontend-project-11/issues"
+  },
+  "homepage": "https://github.com/Saimon398/frontend-project-11#readme",
+  "devDependencies": {
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}
