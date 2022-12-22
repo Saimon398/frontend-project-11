@@ -1,25 +1,8 @@
-import * as yup from 'yup';
 import onChange from 'on-change';
 import render from './view.js';
 import i18n from 'i18next';
 import resources from './locales/index.js';
-
-/**
- * Schema for address validation
- */
-const schema = yup.string().required().url();
-
-/**
- * @description Checks if the address is valid
- * @param {String} address Web-address to be checked
- * @returns {Promise}
- */
-const validate = (data) => schema.validate(data)
-  .then((data) => data)
-  .catch((err) => {
-    console.error(err.message);
-    throw err;
-  });
+import validate from './validate.js';
 
 
 const elements = {
@@ -29,13 +12,13 @@ const elements = {
 };
 
 export default () => {
-  
+
   const i18nextInstance = i18n.createInstance();
   i18nextInstance.init({
     lng: 'ru',
     resources,
   });
-
+  
   const state = {
     feeds: [],
     errors: [],
@@ -46,7 +29,8 @@ export default () => {
   elements.form.addEventListener('submit', (event) => {
     event.preventDefault();
     const { value } = elements.input;
-    validate(value)
+
+    validate(value, i18nextInstance)
       .then((feed) => {
         watchedState.feeds.push(feed)
       })

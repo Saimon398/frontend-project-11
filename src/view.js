@@ -1,10 +1,10 @@
 
 const renderErrors = (errors) => {
-  console.log('ОШИБКА!!!');
+  console.log(errors);
 }
 
 const renderFeeds = (feeds) => {
-  console.log('FEED!!!');
+  console.log(feeds);
 }
 
 const RENDERS = {
