@@ -1,6 +1,8 @@
 import * as yup from 'yup';
 import onChange from 'on-change';
 import render from './view.js';
+import i18n from 'i18next';
+import resources from './locales/index.js';
 
 /**
  * Schema for address validation
@@ -27,9 +29,14 @@ const elements = {
 };
 
 export default () => {
+  
+  const i18nextInstance = i18n.createInstance();
+  i18nextInstance.init({
+    lng: 'ru',
+    resources,
+  });
 
   const state = {
-    valid: true,
     feeds: [],
     errors: [],
   };
