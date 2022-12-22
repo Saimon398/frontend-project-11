@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 
 export default {
     mode: process.env.NODE_ENV || 'development',
-    entry: '/src/index.js',
+    entry: './src/index.js',
     devtool: 'inline-source-map',
     devServer: {
       static: './dist',
