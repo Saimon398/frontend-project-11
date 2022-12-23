@@ -1,9 +1,10 @@
 import onChange from 'on-change';
-import render from './view.js';
 import i18n from 'i18next';
+import render from './view.js';
 import resources from './locales/index.js';
 import validate from './validate.js';
-
+import parse from './parser.js';
+import { fetch, getData } from './utils.js';
 
 const elements = {
   form: document.querySelector('form'),
@@ -12,15 +13,15 @@ const elements = {
 };
 
 export default () => {
-
   const i18nextInstance = i18n.createInstance();
   i18nextInstance.init({
     lng: 'ru',
     resources,
   });
-  
+
   const state = {
     feeds: [],
+    posts: [],
     errors: [],
   };
 
@@ -31,16 +32,15 @@ export default () => {
     const { value } = elements.input;
 
     validate(value, i18nextInstance)
-      .then((feed) => {
-        watchedState.feeds.push(feed)
+      .then((feed) => fetch(feed))
+      .then(({ data }) => parse(data))
+      .then((document) => {
+        const { feed, posts } = getData(state, document);
+        watchedState.feeds.push(feed);
+        watchedState.posts.push(posts);
       })
       .catch((message) => {
         watchedState.errors.push(message);
-      })
-  })
+      });
+  });
 };
-
-
-
-
-

@@ -2,11 +2,11 @@ import * as yup from 'yup';
 
 yup.setLocale({
   mixed: {
-    required: { key: 'emptyness' } 
+    required: { key: 'emptyness' },
   },
   string: {
     url: () => ({ key: 'validation' }),
-  }
+  },
 });
 
 /**
@@ -23,16 +23,7 @@ const schema = yup.string().required().url();
 export default (data, i18nextInstance) => schema.validate(data)
   .then((data) => data)
   .catch((err) => {
-    const [ message ] = err.errors.map((err) => i18nextInstance.t(`errors.${err.key}`));
+    const [message] = err.errors.map((err) => i18nextInstance.t(`errors.${err.key}`));
     console.error(message);
     throw err;
   });
-
-
-
-
-
-
-
-
-
