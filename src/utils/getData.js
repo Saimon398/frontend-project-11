@@ -1,24 +1,10 @@
-import axios from 'axios';
-
-const ORIGIN = 'https://allorigins.hexlet.app/get?disableCache=true&url=';
-
-/**
- * @description Makes GET-request to the "src" and gets content
- * @param {String} src
- * @returns {Promise}
- */
-const fetch = (source) => {
-  const url = `${ORIGIN}${encodeURIComponent(source)}`;
-  return axios.get(url);
-};
-
 /**
  * @description Returns info of channel and its items
  * @param {Object {}} state
  * @param {String} document
  * @returns {Object}
  */
-const getData = (state, document) => {
+export default (state, document) => {
   const id = state.feeds.length + 1;
   const elements = {
     title: document.querySelector('channel title'),
@@ -45,9 +31,4 @@ const getData = (state, document) => {
     feed,
     posts,
   };
-};
-
-export {
-  fetch,
-  getData,
 };

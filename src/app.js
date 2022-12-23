@@ -2,9 +2,10 @@ import onChange from 'on-change';
 import i18n from 'i18next';
 import render from './view.js';
 import resources from './locales/index.js';
-import validate from './validate.js';
-import parse from './parser.js';
-import { fetch, getData } from './utils.js';
+import validate from './utils/validate.js';
+import parse from './utils/parser.js';
+import fetch from './utils/fetch.js';
+import getData from './utils/getData.js';
 
 const elements = {
   form: document.querySelector('form'),
