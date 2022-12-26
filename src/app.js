@@ -8,9 +8,14 @@ import fetch from './utils/fetch.js';
 import getData from './utils/getData.js';
 
 const elements = {
-  form: document.querySelector('form'),
-  input: document.querySelector('input'),
-  button: document.querySelector('button'),
+  control: {
+    form: document.querySelector('form'),
+    input: document.querySelector('input'),
+    button: document.querySelector('button'),
+  },
+  validation: {
+    invalidFeedback: document.querySelector('.invalid-feedback'),
+  },
 };
 
 export default () => {
@@ -21,6 +26,7 @@ export default () => {
   });
 
   const state = {
+    isValid: true,
     feeds: [],
     posts: [],
     errors: [],
@@ -28,9 +34,9 @@ export default () => {
 
   const watchedState = onChange(state, render(state, elements));
 
-  elements.form.addEventListener('submit', (event) => {
+  elements.control.form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const { value } = elements.input;
+    const { value } = elements.control.input;
 
     validate(value, i18nextInstance)
       .then((feed) => fetch(feed))
@@ -39,6 +45,7 @@ export default () => {
         const { feed, posts } = getData(state, document);
         watchedState.feeds.push(feed);
         watchedState.posts.push(posts);
+        watchedState.errors = [];
       })
       .catch((message) => {
         watchedState.errors.push(message);

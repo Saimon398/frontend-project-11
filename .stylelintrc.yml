@@ -1,2 +1,2 @@
 extends:
-  - stylelint-config-standart
+  - stylelint-config-standard

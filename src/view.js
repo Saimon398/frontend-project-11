@@ -1,25 +1,31 @@
-const renderErrors = (errors) => {
-  // Здесь отрисовывается рамка
-  console.log(errors);
+const renderErrors = (elements, state) => {
+  if(state.errors.length) {
+    elements.control.input.classList.add('is-invalid');
+    elements.validation.invalidFeedback.classList.add('d-block');
+    return;
+  }
+  elements.control.input.classList.remove('is-invalid');
+  elements.validation.invalidFeedback.classList.remove('d-block');
+  elements.control.form.reset();
+  elements.control.form.focus();
 };
 
-const renderFeeds = (feeds) => {
+const renderFeeds = (elements, state) => {
   // Здесь отрисовываются потоки
-  console.log(feeds);
 };
 
-const renderPosts = (posts) => {
+const renderPosts = (elements, state) => {
   // Здесь отрисовываются посты
-  console.log(posts);
+  console.log(state);
 };
 
 const renders = {
-  errors: (errors) => renderErrors(errors),
-  feeds: (feeds) => renderFeeds(feeds),
-  posts: (posts) => renderPosts(posts),
+  errors: (elements, state) => renderErrors(elements, state),
+  feeds: (elements, state) => renderFeeds(elements, state),
+  posts: (elements, state) => renderPosts(elements, state),
 };
 
 export default (state, elements) => (path, value, previousValue) => {
   const render = renders[path];
-  return render(value);
+  return render(elements, state);
 };
