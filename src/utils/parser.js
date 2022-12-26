@@ -10,7 +10,10 @@ const parser = new DOMParser();
 export default (data) => {
   const { contents } = data;
   const xmlDocument = parser.parseFromString(contents, 'text/xml');
+
+  console.log(xmlDocument);
   const rootName = xmlDocument.documentElement.tagName.toLowerCase();
+  console.log(rootName);
   if (rootName !== 'rss') {
     throw new Error('There is no RSS in the document!');
   }

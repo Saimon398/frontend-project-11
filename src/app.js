@@ -14,7 +14,11 @@ const elements = {
     button: document.querySelector('button'),
   },
   validation: {
-    invalidFeedback: document.querySelector('.invalid-feedback'),
+    feedback: document.querySelector('.feedback'),
+  },
+  content: {
+    feeds: document.querySelector('.feeds'),
+    posts: document.querySelector('.posts'),
   },
 };
 
@@ -32,7 +36,7 @@ export default () => {
     errors: [],
   };
 
-  const watchedState = onChange(state, render(state, elements));
+  const watchedState = onChange(state, render(state, elements, i18nextInstance));
 
   elements.control.form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -48,6 +52,7 @@ export default () => {
         watchedState.errors = [];
       })
       .catch((message) => {
+        console.log(message);
         watchedState.errors.push(message);
       });
   });

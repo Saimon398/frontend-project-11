@@ -6,6 +6,12 @@ export default {
       placeholder: 'RSS Link',
       addition: 'Add',
       example: 'Example: here is an example',
+      success: 'RSS is downloaded successfully',
+    },
+    cards: {
+      feeds: 'Feeds',
+      posts: 'Posts',
+      button: 'View',
     },
     errors: {
       validation: 'This link must be a valid URL',

@@ -6,6 +6,12 @@ export default {
       placeholder: 'Ссылка RSS',
       addition: 'Добавить',
       example: 'Пример: тут какой-то пример',
+      success: 'RSS успешно загружен',
+    },
+    cards: {
+      feeds: 'Фиды',
+      posts: 'Посты',
+      button: 'Просмотр',
     },
     errors: {
       validation: 'Ссылка должна быть валидным URL',
