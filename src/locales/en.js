@@ -15,6 +15,7 @@ export default {
     },
     errors: {
       validation: 'This link must be a valid URL',
+      presence: 'RSS is already exists',
       emptyness: 'This is a require field',
     },
   },
