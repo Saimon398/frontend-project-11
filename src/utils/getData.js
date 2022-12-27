@@ -11,12 +11,15 @@ export default (state, document) => {
     description: document.querySelector('channel description'),
     items: document.querySelectorAll('channel item'),
   };
-  // Создается объект с постами { title, link }
-  const channelItems = [...elements.items].map((item) => {
+  const channelItems = [...elements.items].map((item, index) => {
+    const id = index + 1;
     const title = item.querySelector('title');
     const link = item.querySelector('link');
+    const description = item.querySelector('description');
     return {
+      id,
       title: title.textContent,
+      description: description.textContent,
       link: link.textContent,
     };
   });
@@ -27,8 +30,6 @@ export default (state, document) => {
   };
 
   const feed = { id, ...channelInfo };
-  // Создается объект типа: { feedId, posts: [{ title, link }, { title, link }] };
-  // Посты - массив с объектами
   const posts = { feedId: id, posts: channelItems };
 
   return {

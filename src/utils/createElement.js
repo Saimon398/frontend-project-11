@@ -3,8 +3,8 @@
  * @param {String} name Tag's name
  * @param {Array []} classes Element's classes
  * @param {Object {}} attributes Element's attributes
- * @returns 
- * @example 
+ * @returns
+ * @example
  * const title = createElement('h1', ['text-white', 'fs-32']);
  * console.log(title); // => <h1 class="text-white fs-32"></h1>
  */

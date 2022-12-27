@@ -6,6 +6,7 @@ import validate from './utils/validate.js';
 import parse from './utils/parser.js';
 import fetch from './utils/fetch.js';
 import getData from './utils/getData.js';
+import getPost from './utils/getPost.js';
 
 const elements = {
   control: {
@@ -20,6 +21,11 @@ const elements = {
     feeds: document.querySelector('.feeds'),
     posts: document.querySelector('.posts'),
   },
+  modal: {
+    title: document.querySelector('.modal-title'),
+    description: document.querySelector('.modal-description'),
+    button: document.querySelectorAll('.modal-footer > .btn'),
+  },
 };
 
 export default () => {
@@ -30,10 +36,10 @@ export default () => {
   });
 
   const state = {
-    isValid: true,
     feeds: [],
     posts: [],
     errors: [],
+    visited: null,
   };
 
   const watchedState = onChange(state, render(state, elements, i18nextInstance));
@@ -49,11 +55,20 @@ export default () => {
         const { feed, posts } = getData(state, document);
         watchedState.feeds.push(feed);
         watchedState.posts.push(posts);
-        watchedState.errors = [];
       })
       .catch((message) => {
         console.log(message);
         watchedState.errors.push(message);
       });
+  });
+
+  elements.content.posts.addEventListener('click', ({ target }) => {
+    const attr = target.dataset.bsTarget;
+    if (attr === '#modal') {
+      watchedState.visited = {
+        feedid: Number(target.dataset.feedid),
+        postid: Number(target.dataset.id),
+      };
+    }
   });
 };

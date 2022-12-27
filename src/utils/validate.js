@@ -20,10 +20,10 @@ const schema = yup.string().required().url();
  * @param {Object} i18nextInstance Instance of i18next
  * @returns {Promise}
  */
-export default (data, i18nextInstance) => schema.validate(data)
+export default (value, i18nextInstance) => schema.validate(value)
   .then((data) => data)
-  .catch((err) => {
-    const [message] = err.errors.map((err) => i18nextInstance.t(`errors.${err.key}`));
+  .catch((e) => {
+    const [message] = e.errors.map((err) => i18nextInstance.t(`errors.${err.key}`));
     console.error(message);
-    throw err;
+    throw e;
   });
