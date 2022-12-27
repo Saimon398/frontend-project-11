@@ -1,9 +1,9 @@
 const parser = new DOMParser();
 
 /**
- * @description Parses XML-Document
- * @param {String} source RSS-address
- * @returns {Promise}
+ * @description Returns parsed XML-Document
+ * @param {String} source XML-document
+ * @returns {Promise<string>} Parsed XML-document
  */
 export default (data) => {
   const { contents } = data;
