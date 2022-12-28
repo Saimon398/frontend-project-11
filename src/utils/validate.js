@@ -3,11 +3,10 @@ import * as yup from 'yup';
 yup.setLocale({
   mixed: {
     required: { key: 'emptyness' },
+    notOneOf: { key: 'presence' },
   },
   string: {
     url: () => ({ key: 'validation' }),
-    // Возможно, что не в том ключе - ДОБАВИТЬ ВОЗМОЖНОСТЬ ВЫВОДА СООБЩЕНИЙ
-    notOneOf: () => ({ key: 'presence'}),
   },
 });
 
@@ -16,7 +15,7 @@ yup.setLocale({
  * @description Checks if the given URL is valid
  * @param {String} address URL to be checked
  * @param {Object} i18nextInstance Instance of i18next
- * @returns {Promise<string>} 
+ * @returns {Promise<string>}
  */
 export default (state, value, i18nextInstance) => {
   const schema = yup.string().required().url().notOneOf(state.added);

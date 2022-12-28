@@ -1,23 +1,11 @@
-import createElement from './utils/createElement.js';
-import filterPost from './utils/getPost.js';
+import { getPost } from './utils/getters.js';
+import { createElement, createCard } from './utils/fabrics.js';
 
-const createCard = (title) => {
-  const card = createElement('div', ['card', 'border-0']);
-  const body = createElement('div', ['card-body']);
-  const heading = createElement('h2', ['card-title', 'h4']);
-  const list = createElement('ul', ['list-group', 'border-0', 'rounded-0']);
-  heading.textContent = title;
-
-  body.appendChild(heading);
-  card.append(body, list);
-
-  return card;
-};
-
-const renderErrors = (errors, elements, state, i18nextInstance) => {
+const renderError = (error, elements, state, i18nextInstance) => {
+  const message = i18nextInstance.t(`errors.${error.key}`);
   elements.control.input.classList.add('is-invalid');
   elements.validation.feedback.classList.add('d-block', 'text-danger');
-  elements.validation.feedback.textContent = i18nextInstance.t('errors.validation');
+  elements.validation.feedback.textContent = message;
 };
 
 const renderFeeds = (feeds, elements, state, i18nextInstance) => {
@@ -47,12 +35,12 @@ const renderFeeds = (feeds, elements, state, i18nextInstance) => {
   container.querySelector('.list-group').append(...feedElems);
 };
 
-const renderPosts = (posts, elements, state, i18nextInstance) => {
+const renderPosts = (loadedPosts, elements, state, i18nextInstance) => {
   elements.content.posts.innerHTML = '';
   const container = createCard(i18nextInstance.t('cards.posts'));
   elements.content.posts.appendChild(container);
 
-  const postElems = posts.flatMap(({ feedId, posts }) => posts.map(({ id, title, link }) => {
+  const postElems = loadedPosts.flatMap(({ feedId, posts }) => posts.map(({ id, title, link }) => {
     const li = createElement('li', [
       'list-group-item',
       'd-flex',
@@ -86,30 +74,22 @@ const renderPosts = (posts, elements, state, i18nextInstance) => {
   container.querySelector('.list-group').append(...postElems);
 };
 
-const renderVisitedPosts = (visited, elements, state, i18nextInstance) => {
-  // Здесь мы добавляем контент в модальное окно
-  const { title, description } = filterPost(state.posts, visited);
+const renderVisitedPosts = (visited, elements, state) => {
+  const { title, description, link } = getPost(state.posts, visited);
   elements.modal.title.textContent = title;
   elements.modal.description.textContent = description;
-  //  Здесь происходит изменение элемента 
-  const link = document.querySelector(`[data-id="${visited.postid}"]`);
-  link.classList.remove('fw-bold', 'link-secondary');
-  link.classList.add('fw-normal', 'link-secondary');
+
+  const post = document.querySelector(`[data-id="${visited.postid}"]`);
+  post.classList.remove('fw-bold', 'link-secondary');
+  post.classList.add('fw-normal', 'link-secondary');
+  elements.modal.button.setAttribute('href', link);
 };
 
 const renders = {
-  errors(errors, elements, state, i18nextInstance) {
-    return renderErrors(errors, elements, state, i18nextInstance);
-  },
-  feeds(feeds, elements, state, i18nextInstance) {
-    return renderFeeds(feeds, elements, state, i18nextInstance);
-  },
-  posts(posts, elements, state, i18nextInstance) {
-    return renderPosts(posts, elements, state, i18nextInstance);
-  },
-  visited(visitedPosts, elements, state, i18nextInstance) {
-    return renderVisitedPosts(visitedPosts, elements, state, i18nextInstance);
-  },
+  error: (...params) => renderError(...params),
+  feeds: (...params) => renderFeeds(...params),
+  posts: (...params) => renderPosts(...params),
+  visited: (...params) => renderVisitedPosts(...params),
 };
 
 export default (state, elements, i18nextInstance) => (path, value) => {

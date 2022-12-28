@@ -5,30 +5,29 @@ import resources from './locales/index.js';
 import validate from './utils/validate.js';
 import parse from './utils/parser.js';
 import fetch from './utils/fetch.js';
-import getData from './utils/getData.js';
-import getPost from './utils/getPost.js';
-
-const elements = {
-  control: {
-    form: document.querySelector('form'),
-    input: document.querySelector('input'),
-    button: document.querySelector('button'),
-  },
-  validation: {
-    feedback: document.querySelector('.feedback'),
-  },
-  content: {
-    feeds: document.querySelector('.feeds'),
-    posts: document.querySelector('.posts'),
-  },
-  modal: {
-    title: document.querySelector('.modal-title'),
-    description: document.querySelector('.modal-description'),
-    button: document.querySelectorAll('.modal-footer > .btn'),
-  },
-};
+import { getData } from './utils/getters.js';
 
 export default () => {
+  const elements = {
+    control: {
+      form: document.querySelector('form'),
+      input: document.querySelector('input'),
+      button: document.querySelector('button'),
+    },
+    validation: {
+      feedback: document.querySelector('.feedback'),
+    },
+    content: {
+      feeds: document.querySelector('.feeds'),
+      posts: document.querySelector('.posts'),
+    },
+    modal: {
+      title: document.querySelector('.modal-title'),
+      description: document.querySelector('.modal-description'),
+      button: document.querySelector('.full-article'),
+    },
+  };
+
   const i18nextInstance = i18n.createInstance();
   i18nextInstance.init({
     lng: 'ru',
@@ -38,7 +37,8 @@ export default () => {
   const state = {
     feeds: [],
     posts: [],
-    errors: [],
+    added: [],
+    error: null,
     visited: null,
   };
 
@@ -47,18 +47,19 @@ export default () => {
   elements.control.form.addEventListener('submit', (event) => {
     event.preventDefault();
     const { value } = elements.control.input;
+    const src = value.trim();
 
-    validate(value, i18nextInstance)
+    validate(state, src, i18nextInstance)
       .then((feed) => fetch(feed))
       .then(({ data }) => parse(data))
       .then((document) => {
         const { feed, posts } = getData(state, document);
         watchedState.feeds.push(feed);
         watchedState.posts.push(posts);
+        state.added.push(value);
       })
-      .catch((message) => {
-        console.log(message);
-        watchedState.errors.push(message);
+      .catch(({ message }) => {
+        watchedState.error = message;
       });
   });
 
