@@ -14,6 +14,8 @@ export default {
       button: 'View',
     },
     errors: {
+      network: 'Network error',
+      noRSS: 'There is no valid RSS in source',
       validation: 'This link must be a valid URL',
       presence: 'RSS is already exists',
       emptyness: 'This is a require field',

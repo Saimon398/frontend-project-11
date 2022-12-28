@@ -14,9 +14,11 @@ export default {
       button: 'Просмотр',
     },
     errors: {
+      network: 'Ошибка сети',
+      noRSS: 'Ресурс не содержит валидный RSS',
       validation: 'Ссылка должна быть валидным URL',
       presence: 'RSS уже существует',
-      emptyness: 'Заполните это поле',
+      emptyness: 'Не должно быть пустым',
     },
   },
 };
