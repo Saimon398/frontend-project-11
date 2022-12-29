@@ -41,7 +41,7 @@ const getData = (state, document) => {
       link: link.textContent,
     };
   });
-  
+
   const channelInfo = {
     title: elements.title.textContent,
     description: elements.description.textContent,

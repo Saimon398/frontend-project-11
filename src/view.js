@@ -30,7 +30,7 @@ const renderFeeds = (feeds, elements, state, i18nextInstance) => {
 
     return li;
   });
-  
+
   container.querySelector('.list-group').append(...feedElems);
 };
 
