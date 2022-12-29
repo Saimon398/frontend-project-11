@@ -13,7 +13,6 @@ const renderFeeds = (feeds, elements, state, i18nextInstance) => {
   const container = createCard(i18nextInstance.t('cards.feeds'));
   elements.content.feeds.appendChild(container);
 
-  // Успешное добавление RSS
   elements.control.input.classList.remove('is-invalid');
   elements.validation.feedback.classList.remove('text-danger');
   elements.validation.feedback.classList.add('d-block', 'text-success');
@@ -31,7 +30,7 @@ const renderFeeds = (feeds, elements, state, i18nextInstance) => {
 
     return li;
   });
-
+  
   container.querySelector('.list-group').append(...feedElems);
 };
 

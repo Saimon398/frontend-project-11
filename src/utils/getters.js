@@ -23,7 +23,6 @@ const getPost = (posts, target) => {
  */
 const getData = (state, document) => {
   const id = state.feeds.length + 1;
-
   const elements = {
     title: document.querySelector('channel title'),
     description: document.querySelector('channel description'),
@@ -35,7 +34,6 @@ const getData = (state, document) => {
     const title = item.querySelector('title');
     const link = item.querySelector('link');
     const description = item.querySelector('description');
-
     return {
       id: postID,
       title: title.textContent,
@@ -43,7 +41,7 @@ const getData = (state, document) => {
       link: link.textContent,
     };
   });
-
+  
   const channelInfo = {
     title: elements.title.textContent,
     description: elements.description.textContent,
