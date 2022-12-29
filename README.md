@@ -20,6 +20,14 @@ To see if your installed application meets the default standard (Airbnb) enter t
 make lint
 ```
 
+### Live reload
+
+The webpack-dev-server provides you with a web server and the ability to use live reloading. Set it up:
+
+```
+make start
+```
+
 ### Usage
 
 Usage of this application is quite simple: enter the URL leading to the potential RSS source. Outcome will be displayed as a list of loaded feeds and their content. There is an example link under input form to see how it works (about football news).
