@@ -2,7 +2,7 @@
 
 ### A small reader that helps you to keep all your feeds at one place
 
-This application helps you to load RSS-feeds easily, keep them on one page altogether and read ones whenever you want. Implementation of this project includes usage of **Promises** instead of **async/await** instructions
+This [application](https://rss-reader-saimon398.vercel.app) helps you to load RSS-feeds easily, keep them on one page altogether and read ones whenever you want. Implementation of this project includes usage of **Promises** instead of **async/await** instructions
 
 ### Installation
 
@@ -26,7 +26,7 @@ Usage of this application is quite simple: enter the URL leading to the potentia
 
 ### Main page
 
-Снимок экрана 2022-12-29 в 01.34.39.png
+![Main page](/src/images/rss-main-page.png)
 
 ### Features
 
